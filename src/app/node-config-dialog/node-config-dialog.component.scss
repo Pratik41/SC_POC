@@ -1,0 +1,16 @@
+// components/node-config-dialog/node-config-dialog.component.scss
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.code-editor {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+mat-dialog-content {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 24px;
+}

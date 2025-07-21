@@ -1,0 +1,64 @@
+// components/workflow-canvas/workflow-canvas.component.html
+<div class="workflow-canvas" #canvas>
+  <div class="canvas-controls">
+    <button mat-icon-button (click)="fitToScreen()" matTooltip="Fit to screen">
+      <mat-icon>fit_screen</mat-icon>
+    </button>
+    <button mat-icon-button (click)="zoomIn()" matTooltip="Zoom in">
+      <mat-icon>zoom_in</mat-icon>
+    </button>
+    <button mat-icon-button (click)="zoomOut()" matTooltip="Zoom out">
+      <mat-icon>zoom_out</mat-icon>
+    </button>
+    <button mat-icon-button (click)="centerView()" matTooltip="Center view">
+      <mat-icon>center_focus_strong</mat-icon>
+    </button>
+  </div>
+
+  <div class="canvas-content" [style.transform]="transform">
+    <svg class="connections-layer">
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+        </marker>
+      </defs>
+      
+      <g *ngFor="let connection of connections">
+        <path [attr.d]="getConnectionPath(connection)"
+              class="connection-line"
+              [class.hovered]="false"
+              marker-end="url(#arrowhead)" />
+      </g>
+
+      <path *ngIf="tempConnection"
+            [attr.d]="getTempConnectionPath()"
+            class="connection-line temp-connection"
+            marker-end="url(#arrowhead)" />
+    </svg>
+
+    <div class="nodes-layer">
+      <app-node *ngFor="let node of nodes"
+                [node]="node"
+                (nodeMove)="onNodeMove($event)"
+                (connectionStart)="onConnectionStart($event)"
+                (connectionEnd)="onConnectionEnd($event)"
+                (connectionCancel)="onConnectionCancel()">
+      </app-node>
+    </div>
+
+    <div class="add-node-button" *ngIf="nodes.length === 0" (click)="toggleNodePanel()">
+      <mat-icon>add</mat-icon>
+      <span>Add first step</span>
+    </div>
+  </div>
+
+  <button mat-fab class="add-node-fab" (click)="toggleNodePanel()" color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <app-node-panel *ngIf="showNodePanel" 
+                  (close)="showNodePanel = false"
+                  [canvasElement]="canvas">
+  </app-node-panel>
+</div>

@@ -1,0 +1,40 @@
+// components/node/node.component.html
+<div class="node-container" 
+     #nodeElement
+     [style.left.px]="node.position.x"
+     [style.top.px]="node.position.y"
+     [class.selected]="isSelected"
+     [class.dragging]="isDragging"
+     (mousedown)="onMouseDown($event)"
+     (dblclick)="onDoubleClick()">
+  
+  <div class="node-header" [style.background-color]="node.color">
+    <mat-icon class="node-icon">{{ node.icon }}</mat-icon>
+    <span class="node-name">{{ node.name }}</span>
+    <button mat-icon-button class="node-action" (click)="deleteNode()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="node-body">
+    <div class="node-inputs">
+      <div class="connection-point input" 
+           *ngFor="let input of getInputArray(); let i = index"
+           (click)="onInputClick($event, i)">
+      </div>
+    </div>
+
+    <div class="node-content">
+      <div class="node-status">
+        <span class="status-text">Ready</span>
+      </div>
+    </div>
+
+    <div class="node-outputs">
+      <div class="connection-point output" 
+           *ngFor="let output of getOutputArray(); let i = index"
+           (click)="onOutputClick($event, i)">
+      </div>
+    </div>
+  </div>
+</div>

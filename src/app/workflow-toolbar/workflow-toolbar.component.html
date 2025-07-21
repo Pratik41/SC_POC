@@ -1,0 +1,37 @@
+// components/workflow-toolbar/workflow-toolbar.component.html
+<div class="workflow-toolbar">
+  <div class="toolbar-left">
+    <input class="workflow-name" [(ngModel)]="workflow.name" placeholder="Workflow name">
+    <mat-slide-toggle [checked]="workflow?.active" (change)="toggleActive()" color="primary">
+      {{ workflow?.active ? 'Active' : 'Inactive' }}
+    </mat-slide-toggle>
+  </div>
+
+  <div class="toolbar-right">
+    <button mat-button (click)="saveWorkflow()">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
+    <button mat-raised-button color="primary" (click)="executeWorkflow()">
+      <mat-icon>play_arrow</mat-icon>
+      Execute
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="shareWorkflow()">
+        <mat-icon>share</mat-icon>
+        Share
+      </button>
+      <button mat-menu-item>
+        <mat-icon>history</mat-icon>
+        History
+      </button>
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        Settings
+      </button>
+    </mat-menu>
+  </div>
+</div>

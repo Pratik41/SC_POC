@@ -1,0 +1,53 @@
+// components/sidenav/sidenav.component.scss
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 240px;
+  background: #1a1a1a;
+  transition: width 0.3s;
+
+  &.collapsed {
+    width: 60px;
+  }
+}
+
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #333;
+
+  h2 {
+    margin: 0;
+    color: #ff6d00;
+    font-size: 24px;
+  }
+}
+
+.sidenav-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #333;
+}
+
+mat-list-item {
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  mat-icon {
+    color: #888;
+  }
+
+  span {
+    color: #ccc;
+  }
+}

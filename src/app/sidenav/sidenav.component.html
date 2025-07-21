@@ -1,0 +1,25 @@
+// components/sidenav/sidenav.component.html
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" [opened]="true" class="sidenav" [class.collapsed]="!isExpanded">
+    <div class="sidenav-header">
+      <h2 *ngIf="isExpanded">n8n</h2>
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>{{ isExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      </button>
+    </div>
+    
+    <mat-nav-list>
+      <mat-list-item *ngFor="let item of menuItems">
+        <mat-icon matListIcon>{{ item.icon }}</mat-icon>
+        <span *ngIf="isExpanded">{{ item.label }}</span>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <div class="sidenav-footer">
+      <mat-list-item>
+        <mat-icon matListIcon>help</mat-icon>
+        <span *ngIf="isExpanded">Help</span>
+      </mat-list-item>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

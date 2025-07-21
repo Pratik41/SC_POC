@@ -1,0 +1,48 @@
+// styles.scss (global styles)
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$custom-primary: mat-palette($mat-orange, 700);
+$custom-accent: mat-palette($mat-blue, 500);
+$custom-warn: mat-palette($mat-red);
+
+$custom-theme: mat-dark-theme((
+  color: (
+    primary: $custom-primary,
+    accent: $custom-accent,
+    warn: $custom-warn,
+  )
+));
+
+@include angular-material-theme($custom-theme);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

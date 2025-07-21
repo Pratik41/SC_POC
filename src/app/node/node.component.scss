@@ -1,0 +1,126 @@
+// components/node/node.component.scss
+.node-container {
+  position: absolute;
+  width: 200px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: move;
+  transition: box-shadow 0.2s;
+  user-select: none;
+
+  &.selected {
+    box-shadow: 0 0 0 2px #ff6d00, 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  &.dragging {
+    opacity: 0.8;
+    z-index: 1000;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.node-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+
+  .node-icon {
+    font-size: 18px;
+    margin-right: 8px;
+  }
+
+  .node-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .node-action {
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+    transition: opacity 0.2s;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &:hover .node-action {
+    opacity: 0.8;
+  }
+}
+
+.node-body {
+  position: relative;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+}
+
+.node-inputs,
+.node-outputs {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.node-inputs {
+  left: -6px;
+}
+
+.node-outputs {
+  right: -6px;
+}
+
+.connection-point {
+  width: 12px;
+  height: 12px;
+  background: #666;
+  border: 2px solid #2a2a2a;
+  border-radius: 50%;
+  cursor: crosshair;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #ff6d00;
+    transform: scale(1.2);
+  }
+
+  &.input {
+    margin-left: -6px;
+  }
+
+  &.output {
+    margin-right: -6px;
+  }
+}
+
+.node-content {
+  flex: 1;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.node-status {
+  .status-text {
+    font-size: 12px;
+    color: #888;
+  }
+}
