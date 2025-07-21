@@ -1,0 +1,20 @@
+<div class="workflow-actions">
+  <button (click)="saveWorkflow()">Save Workflow</button>
+  <button (click)="loadWorkflow()">Load Workflow</button>
+</div>
+
+<app-right-sidebar
+  [selectedNode]="selectedNode"
+  (updateNodeConfig)="handleSave($event)"
+  (triggerNode)="handleNodeTrigger($event)">
+</app-right-sidebar>
+
+<div class="workflow-wrapper">
+  <div class="node-sidebar">
+    <button (click)="addNode('Service')">+ Service</button>
+    <button (click)="addNode('API')">+ API</button>
+    <button (click)="addNode('Webhook')">+ Webhook</button>
+    <button (click)="addNode('Function')">+ Function</button>
+  </div>
+  <div id="paper-container" class="paper-container" #paperContainer></div>
+</div>

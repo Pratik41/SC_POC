@@ -1,0 +1,30 @@
+<div class="modal-overlay" *ngIf="isOpen">
+  <div class="modal-content">
+    <h2>Configure Node</h2>
+    
+    <div class="form-group">
+      <label for="nodeName">Node Name</label>
+      <input
+        id="nodeName"
+        type="text"
+        [(ngModel)]="data.label"
+        placeholder="Enter node name"
+      />
+    </div>
+    
+    <div class="form-group">
+      <label for="nodeType">Node Type</label>
+      <input
+        id="nodeType"
+        type="text"
+        [(ngModel)]="data.type"
+        placeholder="Enter node type"
+      />
+    </div>
+    
+    <div class="modal-actions">
+      <button (click)="onCancel()">Cancel</button>
+      <button (click)="onSave()">Save</button>
+    </div>
+  </div>
+</div>

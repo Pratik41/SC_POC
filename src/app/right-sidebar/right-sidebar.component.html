@@ -1,0 +1,11 @@
+<div class="right-sidebar">
+  <h3>Node Configuration</h3>
+  <label for="node-name">Node Name:</label>
+  <input id="node-name" [(ngModel)]="selectedNode.label" />
+
+  <label for="node-type">Node Type:</label>
+  <input id="node-type" [(ngModel)]="selectedNode.type" />
+
+  <button (click)="onSave()">Save</button>
+  <button (click)="onTrigger()">Trigger</button>
+</div>
