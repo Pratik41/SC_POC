@@ -1,17 +1,17 @@
-// components/workflow-canvas/workflow-canvas.component.html
 <div class="workflow-canvas" #canvas>
   <div class="canvas-controls">
-    <button mat-icon-button (click)="fitToScreen()" matTooltip="Fit to screen">
-      <mat-icon>fit_screen</mat-icon>
+    <!-- Zoom controls with Bootstrap and Font Awesome -->
+    <button class="btn btn-outline-primary" (click)="fitToScreen()" title="Fit to screen">
+      <i class="fas fa-expand-arrows-alt"></i>
     </button>
-    <button mat-icon-button (click)="zoomIn()" matTooltip="Zoom in">
-      <mat-icon>zoom_in</mat-icon>
+    <button class="btn btn-outline-primary" (click)="zoomIn()" title="Zoom in">
+      <i class="fas fa-search-plus"></i>
     </button>
-    <button mat-icon-button (click)="zoomOut()" matTooltip="Zoom out">
-      <mat-icon>zoom_out</mat-icon>
+    <button class="btn btn-outline-primary" (click)="zoomOut()" title="Zoom out">
+      <i class="fas fa-search-minus"></i>
     </button>
-    <button mat-icon-button (click)="centerView()" matTooltip="Center view">
-      <mat-icon>center_focus_strong</mat-icon>
+    <button class="btn btn-outline-primary" (click)="centerView()" title="Center view">
+      <i class="fas fa-crosshairs"></i>
     </button>
   </div>
 
@@ -38,6 +38,7 @@
     </svg>
 
     <div class="nodes-layer">
+      <!-- Replace mat-icon-button with standard button -->
       <app-node *ngFor="let node of nodes"
                 [node]="node"
                 (nodeMove)="onNodeMove($event)"
@@ -48,17 +49,19 @@
     </div>
 
     <div class="add-node-button" *ngIf="nodes.length === 0" (click)="toggleNodePanel()">
-      <mat-icon>add</mat-icon>
+      <i class="fas fa-plus"></i>
       <span>Add first step</span>
     </div>
   </div>
 
-  <button mat-fab class="add-node-fab" (click)="toggleNodePanel()" color="primary">
-    <mat-icon>add</mat-icon>
+  <!-- Replace mat-fab with a standard button (using Font Awesome icon) -->
+  <button class="btn btn-primary add-node-fab" (click)="toggleNodePanel()" title="Add Node">
+    <i class="fas fa-plus"></i>
   </button>
 
+  <!-- Node Panel Component -->
   <app-node-panel *ngIf="showNodePanel" 
-                  (close)="showNodePanel = false"
-                  [canvasElement]="canvas">
+                (close)="showNodePanel = false" 
+                [canvasElement]="canvas">
   </app-node-panel>
 </div>

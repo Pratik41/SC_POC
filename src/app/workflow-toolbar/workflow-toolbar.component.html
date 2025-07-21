@@ -1,37 +1,42 @@
-// components/workflow-toolbar/workflow-toolbar.component.html
 <div class="workflow-toolbar">
   <div class="toolbar-left">
-    <input class="workflow-name" [(ngModel)]="workflow.name" placeholder="Workflow name">
-    <mat-slide-toggle [checked]="workflow?.active" (change)="toggleActive()" color="primary">
-      {{ workflow?.active ? 'Active' : 'Inactive' }}
-    </mat-slide-toggle>
+    <input class="form-control workflow-name" [(ngModel)]="workflow.name" placeholder="Workflow name">
+    
+    <!-- Bootstrap Toggle Switch -->
+    <label class="switch">
+      <input type="checkbox" [checked]="workflow?.active" (change)="toggleActive()">
+      <span class="slider round"></span>
+    </label>
+    <span>{{ workflow?.active ? 'Active' : 'Inactive' }}</span>
   </div>
 
   <div class="toolbar-right">
-    <button mat-button (click)="saveWorkflow()">
-      <mat-icon>save</mat-icon>
-      Save
+    <!-- Save Button -->
+    <button class="btn btn-outline-primary" (click)="saveWorkflow()">
+      <i class="fas fa-save"></i> Save
     </button>
-    <button mat-raised-button color="primary" (click)="executeWorkflow()">
-      <mat-icon>play_arrow</mat-icon>
-      Execute
+
+    <!-- Execute Button -->
+    <button class="btn btn-primary" (click)="executeWorkflow()">
+      <i class="fas fa-play"></i> Execute
     </button>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="shareWorkflow()">
-        <mat-icon>share</mat-icon>
-        Share
+
+    <!-- More Options (Dropdown) -->
+    <div class="btn-group">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-ellipsis-v"></i>
       </button>
-      <button mat-menu-item>
-        <mat-icon>history</mat-icon>
-        History
-      </button>
-      <button mat-menu-item>
-        <mat-icon>settings</mat-icon>
-        Settings
-      </button>
-    </mat-menu>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item" (click)="shareWorkflow()">
+          <i class="fas fa-share"></i> Share
+        </button>
+        <button class="dropdown-item">
+          <i class="fas fa-history"></i> History
+        </button>
+        <button class="dropdown-item">
+          <i class="fas fa-cogs"></i> Settings
+        </button>
+      </div>
+    </div>
   </div>
 </div>

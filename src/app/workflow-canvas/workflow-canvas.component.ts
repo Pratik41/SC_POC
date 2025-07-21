@@ -11,7 +11,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./workflow-canvas.component.scss']
 })
 export class WorkflowCanvasComponent implements OnInit, OnDestroy {
-  @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLDivElement>;
+@ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLDivElement>; 
   
   nodes: Node[] = [];
   connections: Connection[] = [];

@@ -7,8 +7,12 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   cursor: move;
   transition: box-shadow 0.2s;
+ user-select: none;   /* Standard property */
+  -webkit-user-select: none;  /* Safari & iOS Safari compatibility */
+  -moz-user-select: none;     /* Firefox compatibility */
+  -ms-user-select: none;      /* Internet Explorer compatibility */
   user-select: none;
-
+  
   &.selected {
     box-shadow: 0 0 0 2px #ff6d00, 0 2px 8px rgba(0, 0, 0, 0.5);
   }

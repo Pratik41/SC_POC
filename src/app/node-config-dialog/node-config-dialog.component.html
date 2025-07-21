@@ -1,91 +1,89 @@
-// components/node-config-dialog/node-config-dialog.component.html
-<h2 mat-dialog-title>Configure {{ data.node.name }}</h2>
-<mat-dialog-content>
+<h2>Configure {{ data.node.name }}</h2>
+
+<div class="modal-body">
   <form [formGroup]="configForm">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Node Name</mat-label>
-      <input matInput formControlName="name" placeholder="Enter node name">
-    </mat-form-field>
+    <div class="form-group">
+      <label for="nodeName">Node Name</label>
+      <input type="text" id="nodeName" class="form-control" formControlName="name" placeholder="Enter node name">
+    </div>
 
     <!-- HTTP Node Configuration -->
-    <ng-container *ngIf="data.node.type === 'http'">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>URL</mat-label>
-        <input matInput formControlName="url" placeholder="https://api.example.com/endpoint">
-      </mat-form-field>
+    <div *ngIf="data.node.type === 'http'">
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input type="text" id="url" class="form-control" formControlName="url" placeholder="https://api.example.com/endpoint">
+      </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Method</mat-label>
-        <mat-select formControlName="method">
-          <mat-option value="GET">GET</mat-option>
-          <mat-option value="POST">POST</mat-option>
-          <mat-option value="PUT">PUT</mat-option>
-          <mat-option value="DELETE">DELETE</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="form-group">
+        <label for="method">Method</label>
+        <select id="method" class="form-control" formControlName="method">
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="PUT">PUT</option>
+          <option value="DELETE">DELETE</option>
+        </select>
+      </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Headers (JSON)</mat-label>
-        <textarea matInput formControlName="headers" rows="3"></textarea>
-      </mat-form-field>
+      <div class="form-group">
+        <label for="headers">Headers (JSON)</label>
+        <textarea id="headers" class="form-control" formControlName="headers" rows="3" placeholder='{"key": "value"}'></textarea>
+      </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Body (JSON)</mat-label>
-        <textarea matInput formControlName="body" rows="5"></textarea>
-      </mat-form-field>
-    </ng-container>
+      <div class="form-group">
+        <label for="body">Body (JSON)</label>
+        <textarea id="body" class="form-control" formControlName="body" rows="5" placeholder='{"key": "value"}'></textarea>
+      </div>
+    </div>
 
     <!-- Schedule Node Configuration -->
-    <ng-container *ngIf="data.node.type === 'schedule'">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Cron Expression</mat-label>
-        <input matInput formControlName="cronExpression" placeholder="0 * * * *">
-        <mat-hint>Minute Hour Day Month Weekday</mat-hint>
-      </mat-form-field>
+    <div *ngIf="data.node.type === 'schedule'">
+      <div class="form-group">
+        <label for="cronExpression">Cron Expression</label>
+        <input type="text" id="cronExpression" class="form-control" formControlName="cronExpression" placeholder="0 * * * *">
+        <small class="form-text text-muted">Minute Hour Day Month Weekday</small>
+      </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Timezone</mat-label>
-        <input matInput formControlName="timezone" placeholder="UTC">
-      </mat-form-field>
-    </ng-container>
+      <div class="form-group">
+        <label for="timezone">Timezone</label>
+        <input type="text" id="timezone" class="form-control" formControlName="timezone" placeholder="UTC">
+      </div>
+    </div>
 
     <!-- Set Node Configuration -->
-    <ng-container *ngIf="data.node.type === 'set'">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Values (JSON)</mat-label>
-        <textarea matInput formControlName="values" rows="10" 
-                  placeholder='{"key": "value"}'></textarea>
-      </mat-form-field>
-    </ng-container>
+    <div *ngIf="data.node.type === 'set'">
+      <div class="form-group">
+        <label for="values">Values (JSON)</label>
+        <textarea id="values" class="form-control" formControlName="values" rows="10" placeholder='{"key": "value"}'></textarea>
+      </div>
+    </div>
 
     <!-- IF Node Configuration -->
-    <ng-container *ngIf="data.node.type === 'if'">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Condition</mat-label>
-        <textarea matInput formControlName="condition" rows="3"
-                  placeholder="item.value > 100"></textarea>
-      </mat-form-field>
-    </ng-container>
+    <div *ngIf="data.node.type === 'if'">
+      <div class="form-group">
+        <label for="condition">Condition</label>
+        <textarea id="condition" class="form-control" formControlName="condition" rows="3" placeholder="item.value > 100"></textarea>
+      </div>
+    </div>
 
     <!-- Code Node Configuration -->
-    <ng-container *ngIf="data.node.type === 'code'">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Language</mat-label>
-        <mat-select formControlName="language">
-          <mat-option value="javascript">JavaScript</mat-option>
-          <mat-option value="python">Python</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div *ngIf="data.node.type === 'code'">
+      <div class="form-group">
+        <label for="language">Language</label>
+        <select id="language" class="form-control" formControlName="language">
+          <option value="javascript">JavaScript</option>
+          <option value="python">Python</option>
+        </select>
+      </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Code</mat-label>
-        <textarea matInput formControlName="code" rows="15" 
-                  class="code-editor"></textarea>
-      </mat-form-field>
-    </ng-container>
+      <div class="form-group">
+        <label for="code">Code</label>
+        <textarea id="code" class="form-control code-editor" formControlName="code" rows="15"></textarea>
+      </div>
+    </div>
   </form>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="save()">Save</button>
-</mat-dialog-actions>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+</div>

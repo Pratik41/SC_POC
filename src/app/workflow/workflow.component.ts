@@ -9,7 +9,7 @@ import * as joint from 'jointjs';
 export class WorkflowComponent implements AfterViewInit {
   @ViewChild('paperContainer') paperContainer!: ElementRef;
   modalOpen: boolean = false;
-  selectedNode: any = {};
+  selectedNode: any = {};  // Node selected for configuration
   private graph!: joint.dia.Graph;
   private paper!: joint.dia.Paper;
   private nodeCount = 0;
@@ -28,7 +28,7 @@ export class WorkflowComponent implements AfterViewInit {
   }
 
   addNode(type: string) {
-    console.log('Adding node of type:', type);  // Debugging: check if method is triggered
+    console.log('Adding node of type:', type);
 
     const node = new joint.shapes.devs.Model({
       position: { x: 100 + this.nodeCount * 30, y: 100 + this.nodeCount * 30 },
@@ -52,19 +52,18 @@ export class WorkflowComponent implements AfterViewInit {
     this.graph.addCell(node);
     this.nodeCount++;
 
-    console.log('Node added to the graph:', node);
-
     node.on('cell:pointerdblclick', () => {
-      this.openNodeConfig(node);  // Open node config on double-click
+      this.openNodeConfig(node);
     });
   }
 
   openNodeConfig(node: any) {
-    this.selectedNode = { ...node.attributes.attrs };
+    this.selectedNode = { ...node.attributes.attrs };  // Copy node attributes to selectedNode
     this.modalOpen = true;
   }
 
   handleSave(data: any) {
+    // Update the node's attributes based on the saved data
     const node = this.graph.getCell(this.selectedNode.id);
     if (node) {
       node.attr('.label', { text: data.label });
