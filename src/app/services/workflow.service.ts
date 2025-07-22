@@ -265,4 +265,13 @@ export class WorkflowService {
     console.log('Executing workflow:', this.workflow.value);
     // Implement workflow execution logic
   }
+
+  updateWorkflow(updates: Partial<Workflow>): void {
+  const currentWorkflow = this.workflow.value;
+  this.workflow.next({
+    ...currentWorkflow,
+    ...updates,
+    updatedAt: new Date()
+  });
+}
 }

@@ -1,4 +1,4 @@
-<div class="workflow-canvas" #canvas>
+<div class="workflow-canvas" #canvasRef>
   <div class="canvas-controls">
     <!-- Zoom controls with Bootstrap and Font Awesome -->
     <button class="btn btn-outline-primary" (click)="fitToScreen()" title="Fit to screen">
@@ -60,8 +60,9 @@
   </button>
 
   <!-- Node Panel Component -->
-  <app-node-panel *ngIf="showNodePanel" 
-                (close)="showNodePanel = false" 
-                [canvasElement]="canvas">
-  </app-node-panel>
+ 
+    <!-- <app-node-panel *ngIf="showNodePanel" 
+                    (close)="showNodePanel = false" 
+                    [canvasElement]="canvasRef">
+    </app-node-panel> -->
 </div>

@@ -1,39 +1,59 @@
 <div class="workflow-toolbar">
   <div class="toolbar-left">
-    <input class="form-control workflow-name" [(ngModel)]="workflow.name" placeholder="Workflow name">
+    <input class="form-control workflow-name" 
+           [(ngModel)]="workflowName" 
+           (blur)="updateWorkflowName()"
+           placeholder="Workflow name">
     
-    <!-- Bootstrap Toggle Switch -->
-    <label class="switch">
-      <input type="checkbox" [checked]="workflow?.active" (change)="toggleActive()">
-      <span class="slider round"></span>
-    </label>
-    <span>{{ workflow?.active ? 'Active' : 'Inactive' }}</span>
+    <!-- Bootstrap Toggle Switch with proper label -->
+    <div class="toggle-wrapper">
+      <label class="switch" for="workflow-toggle">
+        <input type="checkbox" 
+               id="workflow-toggle"
+               [checked]="workflow?.active" 
+               (change)="toggleActive()"
+               aria-label="Toggle workflow active state">
+        <span class="slider round"></span>
+      </label>
+      <span class="toggle-label">{{ workflow?.active ? 'Active' : 'Inactive' }}</span>
+    </div>
   </div>
 
   <div class="toolbar-right">
     <!-- Save Button -->
-    <button class="btn btn-outline-primary" (click)="saveWorkflow()">
+    <button class="btn btn-outline-primary" 
+            (click)="saveWorkflow()"
+            aria-label="Save workflow">
       <i class="fas fa-save"></i> Save
     </button>
 
     <!-- Execute Button -->
-    <button class="btn btn-primary" (click)="executeWorkflow()">
+    <button class="btn btn-primary" 
+            (click)="executeWorkflow()"
+            aria-label="Execute workflow">
       <i class="fas fa-play"></i> Execute
     </button>
 
     <!-- More Options (Dropdown) -->
     <div class="btn-group">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button class="btn btn-outline-secondary dropdown-toggle" 
+              type="button" 
+              id="dropdownMenuButton" 
+              data-toggle="dropdown" 
+              aria-haspopup="true" 
+              aria-expanded="false"
+              aria-label="More options"
+              title="More options">
         <i class="fas fa-ellipsis-v"></i>
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <button class="dropdown-item" (click)="shareWorkflow()">
           <i class="fas fa-share"></i> Share
         </button>
-        <button class="dropdown-item">
+        <button class="dropdown-item" (click)="viewHistory()">
           <i class="fas fa-history"></i> History
         </button>
-        <button class="dropdown-item">
+        <button class="dropdown-item" (click)="openSettings()">
           <i class="fas fa-cogs"></i> Settings
         </button>
       </div>

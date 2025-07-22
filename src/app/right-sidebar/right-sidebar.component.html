@@ -1,11 +1,78 @@
-<div class="right-sidebar">
-  <h3>Node Configuration</h3>
-  <label for="node-name">Node Name:</label>
-  <input id="node-name" [(ngModel)]="selectedNode.label" />
+<div class="right-sidebar" *ngIf="selectedNode">
+  <div class="sidebar-header">
+    <h3>{{ selectedNode.name }}</h3>
+    <p class="text-muted">{{ selectedNode.type }}</p>
+  </div>
 
-  <label for="node-type">Node Type:</label>
-  <input id="node-type" [(ngModel)]="selectedNode.type" />
+   <div class="sidebar-content">
+  <div class="form-group">
+    <label for="nodeName">Node Name</label>
+    <input type="text" 
+           id="nodeName"
+           class="form-control" 
+           [value]="selectedNode?.name || ''"
+           (input)="updateNodeName($event)">
+  </div>
+</div>
 
-  <button (click)="onSave()">Save</button>
-  <button (click)="onTrigger()">Trigger</button>
+
+    <!-- Dynamic configuration based on node type -->
+    <div [ngSwitch]="selectedNode.type">
+      <!-- HTTP Request Node -->
+      <div *ngSwitchCase="'http'">
+        <div class="form-group">
+          <label>URL</label>
+          <input type="text" class="form-control" [(ngModel)]="nodeConfig.url" placeholder="https://api.example.com">
+        </div>
+        <div class="form-group">
+  <label for="methodSelect">Method</label>
+  <select id="methodSelect"
+          class="form-control" 
+          [(ngModel)]="nodeConfig.method"
+          title="Select HTTP method"
+          aria-label="HTTP Method">
+    <option value="GET">GET</option>
+    <option value="POST">POST</option>
+    <option value="PUT">PUT</option>
+    <option value="DELETE">DELETE</option>
+  </select>
+</div>
+      </div>
+
+      <!-- Schedule Node -->
+      <div *ngSwitchCase="'schedule'">
+        <div class="form-group">
+          <label>Cron Expression</label>
+          <input type="text" class="form-control" [(ngModel)]="nodeConfig.cronExpression" placeholder="0 * * * *">
+        </div>
+      </div>
+
+      <!-- Set Node -->
+      <div *ngSwitchCase="'set'">
+        <div class="form-group">
+          <label>Values (JSON)</label>
+ <textarea class="form-control" 
+                    [(ngModel)]="nodeConfig.headers" 
+                    rows="3"
+                    placeholder='{"Content-Type": "application/json"}'></textarea>        </div>
+      </div>
+
+      <!-- Default case -->
+      <div *ngSwitchDefault>
+        <p class="text-muted">No configuration available for this node type.</p>
+      </div>
+    </div>
+
+    <div class="sidebar-actions">
+      <button class="btn btn-primary btn-block" (click)="handleSave()">Save Configuration</button>
+      <button class="btn btn-success btn-block" (click)="handleTrigger()">Test Node</button>
+    </div>
+  </div>
+<!-- </div> -->
+
+<div class="right-sidebar empty" *ngIf="!selectedNode">
+  <div class="empty-state">
+    <i class="fas fa-mouse-pointer fa-3x text-muted"></i>
+    <p class="text-muted mt-3">Select a node to configure</p>
+  </div>
 </div>

@@ -1,4 +1,3 @@
-// components/node-panel/node-panel.component.scss
 .node-panel {
   position: absolute;
   right: 0;
@@ -10,47 +9,106 @@
   display: flex;
   flex-direction: column;
   z-index: 100;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .panel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
+  padding: 16px 20px;
   border-bottom: 1px solid #444;
+}
 
-  h3 {
-    margin: 0;
-    color: #fff;
-  }
+.panel-header h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
 .panel-search {
-  padding: 16px;
+  padding: 16px 20px;
   border-bottom: 1px solid #444;
+}
 
-  .search-field {
-    width: 100%;
+.search-container {
+  position: relative;
+}
 
-    ::ng-deep .mat-form-field-wrapper {
-      padding-bottom: 0;
-    }
-  }
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  background: #1e1e1e;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #ff6d00;
 }
 
 .panel-content {
   flex: 1;
   overflow-y: auto;
-  padding: 16px;
+  padding: 16px 20px;
 }
 
-.search-results {
-  h4 {
-    color: #888;
-    font-size: 12px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
+.section-title {
+  color: #888;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.category-section {
+  margin-bottom: 24px;
+}
+
+.category-section:last-child {
+  margin-bottom: 0;
 }
 
 .category-nodes {
@@ -67,31 +125,91 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
+  -webkit-user-select: none;  /* Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* IE/Edge */
+  user-select: none;          /* Standard */
+}
 
-  &:hover {
-    background: #333;
-    transform: translateX(-4px);
-  }
+.node-item:hover {
+  background: #333;
+  transform: translateX(-4px);
+}
 
-  mat-icon {
-    margin-right: 12px;
-    font-size: 24px;
-  }
+.node-item[draggable="true"] {
+  cursor: move;
+}
 
-  .node-info {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+.node-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
 
-    .node-name {
-      color: #fff;
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
+.node-icon i {
+  font-size: 18px;
+}
 
-    .node-description {
-      color: #888;
-      font-size: 12px;
-    }
-  }
+.node-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.node-name {
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.node-description {
+  color: #888;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.empty-state i {
+  color: #555;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #888;
+}
+
+/* Scrollbar styling */
+.panel-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel-content::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.panel-content::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 3px;
+}
+
+.panel-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

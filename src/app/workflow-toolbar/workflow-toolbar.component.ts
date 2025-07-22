@@ -1,48 +1,61 @@
-// components/workflow-toolbar/workflow-toolbar.component.ts
 import { Component, OnInit } from '@angular/core';
 import { WorkflowService } from '../services/workflow.service';
-import { Workflow } from '../models/workflow.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-workflow-toolbar',
   templateUrl: './workflow-toolbar.component.html',
-  styleUrls: ['./workflow-toolbar.component.scss']
+  styleUrls: ['./workflow-toolbar.component.css']
 })
 export class WorkflowToolbarComponent implements OnInit {
-  workflow: Workflow | null = null;
-  
-  constructor(
-    private workflowService: WorkflowService,
-    private snackBar: MatSnackBar
-  ) {}
+  workflow: any;
+  workflowName: string = '';
+
+  constructor(private workflowService: WorkflowService) {}
 
   ngOnInit(): void {
     this.workflowService.workflow$.subscribe(workflow => {
       this.workflow = workflow;
+      this.workflowName = workflow?.name || '';
     });
   }
 
-  saveWorkflow(): void {
-    // Implement save logic
-    this.snackBar.open('Workflow saved', 'Close', { duration: 2000 });
-  }
-
-  executeWorkflow(): void {
-    if (!this.workflow?.active) {
-      this.snackBar.open('Please activate the workflow first', 'Close', { duration: 3000 });
-      return;
+  updateWorkflowName(): void {
+    if (this.workflow && this.workflowName) {
+      this.workflowService.updateWorkflow({ ...this.workflow, name: this.workflowName });
     }
-    this.workflowService.executeWorkflow();
-    this.snackBar.open('Workflow execution started', 'Close', { duration: 2000 });
   }
 
   toggleActive(): void {
     this.workflowService.toggleWorkflowActive();
   }
 
+  saveWorkflow(): void {
+    console.log('Saving workflow...');
+    // Add your save logic here
+    alert('Workflow saved!');
+  }
+
+  executeWorkflow(): void {
+    if (!this.workflow?.active) {
+      alert('Please activate the workflow first');
+      return;
+    }
+    console.log('Executing workflow...');
+    // Add your execution logic here
+  }
+
   shareWorkflow(): void {
-    // Implement share logic
-    this.snackBar.open('Share feature coming soon', 'Close', { duration: 2000 });
+    console.log('Share workflow');
+    // Add share logic
+  }
+
+  viewHistory(): void {
+    console.log('View history');
+    // Add history logic
+  }
+
+  openSettings(): void {
+    console.log('Open settings');
+    // Add settings logic
   }
 }

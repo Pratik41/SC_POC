@@ -1,28 +1,39 @@
-// components/node-panel/node-panel.component.html
-<div class="node-panel" (click.stop)>
+<div class="node-panel" (click)="$event.stopPropagation()">
   <div class="panel-header">
     <h3>Add Node</h3>
-    <button mat-icon-button (click)="close.emit()">
-      <mat-icon>close</mat-icon>
+    <button type="button" 
+            class="close-btn" 
+            (click)="close.emit()"
+            aria-label="Close panel"
+            title="Close panel">
+      <i class="fas fa-times"></i>
     </button>
   </div>
 
   <div class="panel-search">
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search nodes</mat-label>
-      <input matInput [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Type to search...">
-      <mat-icon matPrefix>search</mat-icon>
-    </mat-form-field>
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input 
+        type="text" 
+        class="form-control search-input" 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearch()" 
+        placeholder="Search nodes...">
+    </div>
   </div>
 
   <div class="panel-content">
+    <!-- Search Results -->
     <div *ngIf="searchTerm && filteredNodes.length > 0" class="search-results">
-      <h4>Search Results</h4>
-      <div class="node-item" *ngFor="let node of filteredNodes"
+      <h4 class="section-title">Search Results</h4>
+      <div class="node-item" 
+           *ngFor="let node of filteredNodes"
            draggable="true"
            (dragstart)="onDragStart($event, node)"
            (click)="addNode(node)">
-        <mat-icon [style.color]="node.color">{{ node.icon }}</mat-icon>
+        <div class="node-icon" [style.background-color]="node.color">
+          <i [class]="'fas fa-' + node.icon"></i>
+        </div>
         <div class="node-info">
           <span class="node-name">{{ node.name }}</span>
           <span class="node-description">{{ node.description }}</span>
@@ -30,25 +41,32 @@
       </div>
     </div>
 
-    <mat-accordion *ngIf="!searchTerm">
-      <mat-expansion-panel *ngFor="let category of categories" [expanded]="true">
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{ category }}</mat-panel-title>
-        </mat-expansion-panel-header>
-        
+    <!-- Categories -->
+    <div *ngIf="!searchTerm" class="categories">
+      <div *ngFor="let category of categories" class="category-section">
+        <h4 class="section-title">{{ category }}</h4>
         <div class="category-nodes">
-          <div class="node-item" *ngFor="let node of nodesByCategory[category]"
+          <div class="node-item" 
+               *ngFor="let node of nodesByCategory[category]"
                draggable="true"
                (dragstart)="onDragStart($event, node)"
                (click)="addNode(node)">
-            <mat-icon [style.color]="node.color">{{ node.icon }}</mat-icon>
+            <div class="node-icon" [style.background-color]="node.color">
+              <i [class]="'fas fa-' + node.icon"></i>
+            </div>
             <div class="node-info">
               <span class="node-name">{{ node.name }}</span>
               <span class="node-description">{{ node.description }}</span>
             </div>
           </div>
         </div>
-      </mat-expansion-panel>
-    </mat-accordion>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="searchTerm && filteredNodes.length === 0" class="empty-state">
+      <i class="fas fa-search fa-3x text-muted"></i>
+      <p class="text-muted mt-3">No nodes found matching "{{ searchTerm }}"</p>
+    </div>
   </div>
 </div>
