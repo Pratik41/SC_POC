@@ -4,7 +4,7 @@ import { WorkflowService } from '../services/workflow.service';
 @Component({
   selector: 'app-node-panel',
   templateUrl: './node-panel.component.html',
-  styleUrls: ['./node-panel.component.css']
+  styleUrls: ['./node-panel.component.scss']
 })
 export class NodePanelComponent {
   @Input() canvasElement!: ElementRef<HTMLDivElement>;  // Add this input

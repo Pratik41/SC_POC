@@ -4,7 +4,7 @@ import { WorkflowService } from '../services/workflow.service';
 @Component({
   selector: 'app-workflow-toolbar',
   templateUrl: './workflow-toolbar.component.html',
-  styleUrls: ['./workflow-toolbar.component.css']
+  styleUrls: ['./workflow-toolbar.component.scss']
 })
 export class WorkflowToolbarComponent implements OnInit {
   workflow: any;
